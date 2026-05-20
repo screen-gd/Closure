@@ -7,13 +7,13 @@ import {
   Code2,
   Copy,
   FileText,
+  LockKeyhole,
   Map,
   MessageCircle,
   MessagesSquare,
   Minus,
   Monitor,
   Search,
-  Server,
   Shield,
   ShieldCheck,
   SlidersHorizontal,
@@ -26,6 +26,9 @@ import Postgresql from "@thesvg/react/postgresql";
 import Prisma from "@thesvg/react/prisma";
 import TailwindCss from "@thesvg/react/tailwind-css";
 import Typescript from "@thesvg/react/typescript";
+
+import { PretextHeroHeading } from "@/components/pretext-hero-heading";
+import { SiteBackground } from "@/components/site-background";
 
 const modules = [
   {
@@ -48,24 +51,6 @@ const modules = [
       "Collect requests, votes, and status changes in a customer-facing workflow you fully own.",
     icon: <MessagesSquare />,
     tone: "purple",
-  },
-];
-
-const proofItems = [
-  {
-    title: "Open Source",
-    subtitle: "MIT licensed core",
-    icon: <Sparkles />,
-  },
-  {
-    title: "Self-hostable",
-    subtitle: "Your server, your data",
-    icon: <Server />,
-  },
-  {
-    title: "Next.js",
-    subtitle: "Built for the stack you use",
-    icon: <NextLogoMark />,
   },
 ];
 
@@ -96,7 +81,9 @@ const notIncluded = [
 export default function Home() {
   return (
     <main className="site-shell">
+      <SiteBackground />
       <HeroSection />
+      <SurfaceBridge />
       <ProductSystem />
       <WhyOwnIt />
       <ProductPreviewSection />
@@ -111,85 +98,128 @@ export default function Home() {
 function HeroSection() {
   return (
     <section className="hero-section">
-      <Nav />
+      <div className="hero-stage">
+        <p className="hero-status">
+          <span />
+          100% Open Source
+        </p>
 
-      <div className="hero-layout">
-        <div className="hero-copy">
-          <p className="hero-eyebrow">Roadmap Nexus Free</p>
-          <h1>
-            <span>Open-source roadmap</span>
-            <span>software you can</span>
-            <span>actually own.</span>
-          </h1>
-          <p className="hero-lede">
-            A self-hostable Next.js starter for roadmap, changelog, and
-            feedback. Launch a real public updates portal without recurring
-            roadmap SaaS pricing.
-          </p>
+        <img
+          src="/brand/logo-text-cropped.webp"
+          alt="Roadmap Nexus Free"
+          className="hero-brand"
+        />
 
-          <div className="hero-actions">
-            <a href="#demo" className="button button-primary">
-              <Monitor />
-              View Demo
-            </a>
-            <a href="#github" className="button button-secondary">
-              <Github aria-hidden="true" />
-              View GitHub
-            </a>
-          </div>
+        <PretextHeroHeading>
+          The open-source, self-hostable roadmap, changelog, and feedback platform.
+        </PretextHeroHeading>
 
-          <div className="hero-proof-strip" aria-label="Product highlights">
-            {proofItems.map((item) => (
-              <div key={item.title} className="hero-proof-item">
-                <span>{item.icon}</span>
-                <strong>{item.title}</strong>
-                <small>{item.subtitle}</small>
-              </div>
-            ))}
-          </div>
+        <p className="hero-lede">Ship transparently. Engage users. Build in the open.</p>
+
+        <div className="hero-actions">
+          <a href="#demo" className="button button-primary">
+            <Monitor />
+            View Demo
+          </a>
+          <a href="#github" className="button button-secondary">
+            <Github aria-hidden="true" />
+            Open GitHub
+          </a>
         </div>
 
-        <div className="hero-visual" aria-label="Roadmap Nexus product preview">
-          <div className="product-shot">
-            <span className="feature-bubble feature-bubble-top">
-              Roadmap, changelog, feedback
-            </span>
-            <img
-              src="/brand/hero-section-asset.webp"
-              alt="Roadmap Nexus interface with roadmap, changelog, and feedback modules"
-              className="hero-product-image"
-            />
-            <span className="feature-bubble feature-bubble-bottom">
-              Self-hosted. MIT licensed. Your data.
-            </span>
-          </div>
+        <div className="hero-trust-row" aria-label="Product highlights">
+          <span>
+            <LockKeyhole />
+            Self-hosted
+          </span>
+          <span>
+            <Code2 />
+            Developer Friendly
+          </span>
+          <span>
+            <ShieldCheck />
+            Privacy First
+          </span>
+          <span>
+            <Sparkles />
+            Loved by Developers
+          </span>
         </div>
-      </div>
 
-      <div className="hero-note">
-        <Code2 />
-        <span>100% open-source. No lock-in. No recurring fees.</span>
+        <span className="hero-guide hero-guide-left" aria-hidden="true" />
+        <span className="hero-guide hero-guide-right" aria-hidden="true" />
+
+        <img
+          src="/brand/hero-icon-server-final.png"
+          alt=""
+          className="hero-orbit-icon hero-orbit-icon-server"
+          aria-hidden="true"
+        />
+        <img
+          src="/brand/hero-icon-users-final.png"
+          alt=""
+          className="hero-orbit-icon hero-orbit-icon-users"
+          aria-hidden="true"
+        />
+        <img
+          src="/brand/hero-icon-chart-final.png"
+          alt=""
+          className="hero-orbit-icon hero-orbit-icon-chart"
+          aria-hidden="true"
+        />
+        <img
+          src="/brand/hero-icon-feedback-final.png"
+          alt=""
+          className="hero-orbit-icon hero-orbit-icon-feedback"
+          aria-hidden="true"
+        />
+
+        <div className="hero-product-frame" aria-label="Roadmap Nexus product preview">
+          <img
+            src="/brand/hero-section-asset-final.png"
+            alt="Roadmap Nexus interface with roadmap, changelog, and feedback modules"
+            className="hero-product-image"
+          />
+        </div>
       </div>
     </section>
   );
 }
 
-function Nav() {
-  return (
-    <header className="site-nav">
-      <a href="#" aria-label="Roadmap Nexus home" className="brand-lockup">
-        <img src="/brand/logo-text-cropped.webp" alt="Roadmap Nexus" />
-      </a>
+function SurfaceBridge() {
+  const surfaces = [
+    {
+      title: "Roadmap",
+      description: "Show what is planned, in progress, and coming next.",
+      icon: <Map />,
+    },
+    {
+      title: "Changelog",
+      description: "Publish shipped work as a clean public release history.",
+      icon: <FileText />,
+    },
+    {
+      title: "Feedback",
+      description: "Collect votes and requests without sending users elsewhere.",
+      icon: <MessagesSquare />,
+    },
+  ];
 
-      <nav aria-label="Primary navigation">
-        <a href="#docs">Docs</a>
-        <a href="#github">GitHub</a>
-        <a href="#demo">Demo</a>
-        <a href="#github" className="nav-icon" aria-label="GitHub repository">
-          <Github aria-hidden="true" />
-        </a>
-      </nav>
-    </header>
+  return (
+    <section className="surface-bridge" aria-label="Product surfaces">
+      <div className="surface-track">
+        {surfaces.map((surface) => (
+          <article key={surface.title} className="surface-card">
+            <span>{surface.icon}</span>
+            <div>
+              <h2>{surface.title}</h2>
+              <p>{surface.description}</p>
+            </div>
+            <ArrowRight />
+          </article>
+        ))}
+      </div>
+    </section>
   );
 }
 
@@ -197,7 +227,6 @@ function ProductSystem() {
   return (
     <section className="grid-section" id="demo">
       <div className="section-header section-header-wide">
-        <p className="section-kicker">Product system</p>
         <h2>Everything buyers ask for</h2>
         <p>
           Give users one public place to see what is planned, what shipped, and
@@ -218,7 +247,6 @@ function ProductSystem() {
         ))}
       </div>
 
-      <ProofStrip />
     </section>
   );
 }
@@ -228,7 +256,6 @@ function WhyOwnIt() {
     <section className="grid-section">
       <div className="split-heading">
         <div>
-          <p className="section-kicker">Why teams switch</p>
           <h2>Stop renting the product ops layer.</h2>
         </div>
         <p>
@@ -257,7 +284,7 @@ function WhyOwnIt() {
             <li>Open-source core with no tracked-user fees</li>
             <li>Roadmap, releases, votes, and feedback in Postgres</li>
             <li>Built on Next.js, TypeScript, Tailwind, Prisma</li>
-            <li>Designed to become your product's updates hub</li>
+            <li>Designed to become your product&apos;s updates hub</li>
           </ul>
         </article>
       </div>
@@ -269,7 +296,6 @@ function ProductPreviewSection() {
   return (
     <section className="grid-section">
       <div className="section-header">
-        <p className="section-kicker">Real product surfaces</p>
         <h2>Not a placeholder template.</h2>
         <p>
           The free core includes working UI patterns for roadmap, changelog,
@@ -297,16 +323,11 @@ function FreeIncludes() {
     <section className="grid-section">
       <div className="free-layout">
         <div className="free-copy">
-          <p className="section-kicker">Open-source core</p>
           <h2>What you get for free</h2>
           <p>
             Everything needed to launch a public roadmap, changelog, and
             feedback board for one product without asking for budget approval.
           </p>
-          <div className="free-mini-proof">
-            <MiniProof icon={<Sparkles />} title="MIT licensed" subtitle="Fork, ship, extend" />
-            <MiniProof icon={<NextLogoMark />} title="Next.js app" subtitle="Developer-first stack" />
-          </div>
         </div>
 
         <FeatureListCard
@@ -328,7 +349,6 @@ function StackSection() {
   return (
     <section className="grid-section">
       <div className="section-header section-header-wide">
-        <p className="section-kicker">Built to extend</p>
         <h2>Familiar production stack</h2>
         <p>
           No mystery framework and no vendor-specific runtime. Clone it,
@@ -345,7 +365,6 @@ function StackSection() {
         ))}
       </div>
 
-      <ProofStrip />
     </section>
   );
 }
@@ -354,7 +373,6 @@ function DocsSection() {
   return (
     <section className="grid-section docs-section" id="docs">
       <div className="docs-copy">
-        <p className="section-kicker">Implementation docs</p>
         <h2>Docs that reduce setup risk</h2>
         <p>
           Clear setup paths for local development, deployment, environment
@@ -482,7 +500,7 @@ function RoadmapPreview({ compact = false }: { compact?: boolean }) {
   return (
     <div className="mini-product">
       <h4>Roadmap</h4>
-      <p>See what's planned and in progress.</p>
+      <p>See what&apos;s planned and in progress.</p>
       <div className="roadmap-list">
         {groups.map((group) => (
           <div key={group.label} className="roadmap-group">
@@ -651,42 +669,6 @@ function FeatureListCard({
         ))}
       </div>
     </article>
-  );
-}
-
-function ProofStrip() {
-  return (
-    <div className="proof-strip">
-      {proofItems.map((item) => (
-        <div key={item.title}>
-          <span>{item.icon}</span>
-          <div>
-            <strong>{item.title}</strong>
-            <small>{item.subtitle}</small>
-          </div>
-        </div>
-      ))}
-    </div>
-  );
-}
-
-function MiniProof({
-  icon,
-  title,
-  subtitle,
-}: {
-  icon: React.ReactNode;
-  title: string;
-  subtitle: string;
-}) {
-  return (
-    <div className="mini-proof">
-      <span>{icon}</span>
-      <div>
-        <strong>{title}</strong>
-        <small>{subtitle}</small>
-      </div>
-    </div>
   );
 }
 

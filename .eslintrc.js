@@ -2,10 +2,9 @@
 module.exports = {
   extends: [
     'eslint:recommended',
-    '@typescript-eslint/recommended',
+    'plugin:@typescript-eslint/recommended',
     'next',
-    'next/core-web-vitals',
-    'prettier'
+    'next/core-web-vitals'
   ],
   plugins: ['@typescript-eslint'],
   parser: '@typescript-eslint/parser',
@@ -49,5 +48,6 @@ module.exports = {
     'react/react-in-jsx-scope': 'off',
     'react/prop-types': 'off',
     '@next/next/no-img-element': 'off',
+    '@next/next/no-html-link-for-pages': 'off',
   },
 };

@@ -6,3 +6,103 @@ datasource db {
   provider = "postgresql"
   url      = env("DATABASE_URL")
 }
+
+model Project {
+  id           String   @id @default(cuid())
+  name         String
+  slug         String   @unique
+  description  String?
+  logoUrl      String?
+  primaryColor String   @default("#07111d")
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+
+  roadmapItems   RoadmapItem[]
+  changelogEntry ChangelogEntry[]
+  feedbackPosts  FeedbackPost[]
+}
+
+model RoadmapItem {
+  id          String   @id @default(cuid())
+  title       String
+  slug        String
+  summary     String?
+  content     String?
+  status      String   @default("planned")
+  category    String?
+  isPublic    Boolean  @default(true)
+  displayOrder Int     @default(0)
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  projectId String
+  project   Project @relation(fields: [projectId], references: [id], onDelete: Cascade)
+
+  @@unique([projectId, slug])
+}
+
+model ChangelogEntry {
+  id          String   @id @default(cuid())
+  version     String
+  title       String?
+  slug        String
+  summary     String?
+  content     String?
+  publishedAt DateTime @default(now())
+  isPublic    Boolean  @default(true)
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  projectId String
+  project   Project @relation(fields: [projectId], references: [id], onDelete: Cascade)
+
+  sections    ChangelogSection[]
+  @@unique([projectId, slug])
+}
+
+model ChangelogSection {
+  id          String @id @default(cuid())
+  type        String @default("new")
+  title       String?
+  description String?
+
+  entryId String
+  entry   ChangelogEntry @relation(fields: [entryId], references: [id], onDelete: Cascade)
+}
+
+model FeedbackPost {
+  id          String   @id @default(cuid())
+  title       String
+  content     String?
+  status      String   @default("under_review")
+  authorName  String?
+  authorEmail String?
+  votesCount  Int      @default(0)
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  projectId String
+  project   Project @relation(fields: [projectId], references: [id], onDelete: Cascade)
+
+  votes Vote[]
+}
+
+model Vote {
+  id            String   @id @default(cuid())
+  voterKey      String
+  createdAt     DateTime @default(now())
+
+  feedbackPostId String
+  feedbackPost   FeedbackPost @relation(fields: [feedbackPostId], references: [id], onDelete: Cascade)
+
+  @@unique([feedbackPostId, voterKey])
+}
+
+model AdminUser {
+  id        String   @id @default(cuid())
+  email     String   @unique
+  name      String?
+  role      String   @default("admin")
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}

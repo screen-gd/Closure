@@ -4,7 +4,12 @@
       "Bash(gh pr *)",
       "Bash(git init *)",
       "Bash(git add *)",
-      "Bash(git commit *)"
+      "Bash(git commit *)",
+      "Bash(npm run *)",
+      "Bash(npm install *)",
+      "Bash(npm list *)",
+      "Bash(npx eslint *)",
+      "Bash(npm ls *)"
     ]
   }
 }
